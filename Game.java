@@ -87,18 +87,7 @@ public class Game
         System.out.println();
         System.out.println("You are " + currentRoom.getDescription());
         System.out.print("Exits: ");
-        if(currentRoom.northExit != null) {
-            System.out.print("north ");
-        }
-        if(currentRoom.eastExit != null) {
-            System.out.print("east ");
-        }
-        if(currentRoom.southExit != null) {
-            System.out.print("south ");
-        }
-        if(currentRoom.westExit != null) {
-            System.out.print("west ");
-        }
+        System.out.println(printLocationInfo());
         System.out.println();
     }
 
@@ -182,22 +171,28 @@ public class Game
             currentRoom = nextRoom;
             System.out.println("You are " + currentRoom.getDescription());
             System.out.print("Exits: ");
-            if(currentRoom.northExit != null) {
-                System.out.print("north ");
-            }
-            if(currentRoom.eastExit != null) {
-                System.out.print("east ");
-            }
-            if(currentRoom.southExit != null) {
-                System.out.print("south ");
-            }
-            if(currentRoom.westExit != null) {
-                System.out.print("west ");
-            }
+            System.out.println(printLocationInfo());
             System.out.println();
         }
     }
 
+    private String printLocationInfo() {
+        String direction = "";
+        if(currentRoom.northExit != null) {
+            direction += "north ";
+        }
+        if(currentRoom.eastExit != null) {
+            direction += "east ";
+        }
+        if(currentRoom.southExit != null) {
+            direction += "south ";
+        }
+        if(currentRoom.westExit != null) {
+            direction += "west ";
+        }
+        return direction;
+    }
+    
     /** 
      * "Quit" was entered. Check the rest of the command to see
      * whether we really quit the game.
