@@ -46,14 +46,19 @@ public class Game
         salaDelTesoro = new Room("on a filled with gold treasure room");
         fuenteDeLaSabiduria  = new Room("the new sage king");
         // initialise room exits
-        salaPrincipal.setExits(null, capilla, null, sotano, null);
-        sotano.setExits(null, salaPrincipal, prision, null, null);
-        prision.setExits(sotano, null, null, null, null);
-        capilla.setExits(null, torreon, salaDelTrono, salaPrincipal, null);
-        torreon.setExits(null, null, null, capilla, null);
-        salaDelTrono.setExits(capilla, null, salaDelTesoro, null, fuenteDeLaSabiduria);
-        salaDelTesoro.setExits(salaDelTrono, null, null, null, null);
-        fuenteDeLaSabiduria.setExits(null, null, null, null, null);
+        salaPrincipal.setExit("east", capilla);
+        salaPrincipal.setExit("west", sotano);
+        sotano.setExit("south", prision);
+        sotano.setExit("east", salaPrincipal);
+        prision.setExit("north", sotano);
+        capilla.setExit("west", salaPrincipal);
+        capilla.setExit("east", torreon);
+        capilla.setExit("south", salaDelTrono);
+        torreon.setExit("west", capilla);
+        salaDelTrono.setExit("north", capilla);
+        salaDelTrono.setExit("south", salaDelTesoro);
+        salaDelTrono.setExit("southwest", fuenteDeLaSabiduria);
+        salaDelTesoro.setExit("north", salaDelTrono);
         currentRoom = salaPrincipal;  // start game outside
     }
 
@@ -86,7 +91,6 @@ public class Game
         System.out.println("Type 'help' if you need help.");
         System.out.println();
         System.out.println("You are " + currentRoom.getDescription());
-        System.out.print("Exits: ");
         System.out.println(printLocationInfo());
         System.out.println();
     }
@@ -150,54 +154,23 @@ public class Game
         String direction = command.getSecondWord();
 
         // Try to leave current room.
-        Room nextRoom = null;
-        if(direction.equals("north")) {
-            nextRoom = currentRoom.northExit;
-        }
-        if(direction.equals("east")) {
-            nextRoom = currentRoom.eastExit;
-        }
-        if(direction.equals("south")) {
-            nextRoom = currentRoom.southExit;
-        }
-        if(direction.equals("west")) {
-            nextRoom = currentRoom.westExit;
-        }
-         if(direction.equals("southwest")) {
-            nextRoom = currentRoom.southwestExit;
-        }
+        Room nextRoom = currentRoom.getExit(direction);
         if (nextRoom == null) {
             System.out.println("There is no door!");
         }
         else {
             currentRoom = nextRoom;
             System.out.println("You are " + currentRoom.getDescription());
-            System.out.print("Exits: ");
             System.out.println(printLocationInfo());
             System.out.println();
         }
     }
 
     private String printLocationInfo() {
-        String direction = "";
-        if(currentRoom.northExit != null) {
-            direction += "north ";
-        }
-        if(currentRoom.eastExit != null) {
-            direction += "east ";
-        }
-        if(currentRoom.southExit != null) {
-            direction += "south ";
-        }
-        if(currentRoom.westExit != null) {
-            direction += "west ";
-        }
-        if(currentRoom.southwestExit != null) {
-            direction += "southwest ";
-        }
+        String direction = currentRoom.getExitString();
         return direction;
     }
-    
+
     /** 
      * "Quit" was entered. Check the rest of the command to see
      * whether we really quit the game.
