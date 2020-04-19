@@ -44,16 +44,16 @@ public class Game
         torreon = new Room("on a decrepit tower");
         salaDelTrono = new Room("on the majestic throne room");
         salaDelTesoro = new Room("on a filled with gold treasure room");
-
+        fuenteDeLaSabiduria  = new Room("the new sage king");
         // initialise room exits
-        salaPrincipal.setExits(null, capilla, null, sotano);
-        sotano.setExits(null, salaPrincipal, prision, null);
-        prision.setExits(sotano, null, null, null);
-        capilla.setExits(null, torreon, salaDelTrono, salaPrincipal);
-        torreon.setExits(null, null, null, capilla);
-        salaDelTrono.setExits(capilla, null, salaDelTesoro, null);
-        salaDelTesoro.setExits(salaDelTrono, null, null, null);
-
+        salaPrincipal.setExits(null, capilla, null, sotano, null);
+        sotano.setExits(null, salaPrincipal, prision, null, null);
+        prision.setExits(sotano, null, null, null, null);
+        capilla.setExits(null, torreon, salaDelTrono, salaPrincipal, null);
+        torreon.setExits(null, null, null, capilla, null);
+        salaDelTrono.setExits(capilla, null, salaDelTesoro, null, fuenteDeLaSabiduria);
+        salaDelTesoro.setExits(salaDelTrono, null, null, null, null);
+        fuenteDeLaSabiduria.setExits(null, null, null, null, null);
         currentRoom = salaPrincipal;  // start game outside
     }
 
@@ -163,7 +163,9 @@ public class Game
         if(direction.equals("west")) {
             nextRoom = currentRoom.westExit;
         }
-
+         if(direction.equals("southwest")) {
+            nextRoom = currentRoom.southwestExit;
+        }
         if (nextRoom == null) {
             System.out.println("There is no door!");
         }
@@ -189,6 +191,9 @@ public class Game
         }
         if(currentRoom.westExit != null) {
             direction += "west ";
+        }
+        if(currentRoom.southwestExit != null) {
+            direction += "southwest ";
         }
         return direction;
     }
