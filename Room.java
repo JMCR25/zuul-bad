@@ -1,3 +1,5 @@
+import java.util.HashMap;
+
 /**
  * Class Room - a room in an adventure game.
  *
@@ -15,11 +17,7 @@
 public class Room 
 {
     private String description;
-    private Room northExit;
-    private Room southExit;
-    private Room eastExit;
-    private Room westExit;
-    private Room southwestExit;
+    private HashMap<String, Room> exits;
 
     /**
      * Create a room described "description". Initially, it has
@@ -30,29 +28,9 @@ public class Room
     public Room(String description) 
     {
         this.description = description;
+        exits = new HashMap<String, Room>();
     }
 
-    /**
-     * Define the exits of this room.  Every direction either leads
-     * to another room or is null (no exit there).
-     * @param north The north exit.
-     * @param east The east east.
-     * @param south The south exit.
-     * @param west The west exit.
-     */
-    public void setExits(Room north, Room east, Room south, Room west, Room southwest) 
-    {
-        if(north != null)
-            northExit = north;
-        if(east != null)
-            eastExit = east;
-        if(south != null)
-            southExit = south;
-        if(west != null)
-            westExit = west;
-        if(southwest != null)
-            southwestExit = southwest;
-    }
 
     /**
      * Devuelve la sala vecina a la actual que esta ubicada en la direccion indicada como parametro.
@@ -63,15 +41,15 @@ public class Room
     public Room getExit(String salida) {
         Room escape = null;
         if(salida.equals("north"))
-            escape = northExit;
+            escape = exits.get("north");
         if(salida.equals("west"))
-            escape = westExit;
+            escape = exits.get("west");
         if(salida.equals("east"))
-            escape = eastExit;
+            escape = exits.get("east");
         if(salida.equals("south"))
-            escape = southExit;
+            escape = exits.get("south");
         if(salida.equals("southwest"))
-            escape = southwestExit;
+            escape = exits.get("southwest");
         return escape;
     }
 
@@ -84,19 +62,19 @@ public class Room
      */
     public String getExitString() {
         String salidas = "Exits: ";
-        if(northExit != null) {
+        if(exits.get("north") != null) {
             salidas += "north ";
         }
-        if(eastExit != null) {
+        if(exits.get("east") != null) {
             salidas += "east ";
         }
-        if(southExit != null) {
+        if(exits.get("south") != null) {
             salidas += "south ";
         }
-        if(westExit != null) {
+        if(exits.get("west") != null) {
             salidas += "west ";
         }
-        if(southwestExit != null) {
+        if(exits.get("southwest") != null) {
             salidas += "southwest ";
         }
         return salidas;
@@ -110,15 +88,15 @@ public class Room
      */
     public void setExit(String direccion, Room sala) {
         if(direccion.equals("east"))
-            eastExit = sala;
+            exits.put("east", sala);
         if(direccion.equals("north"))
-            northExit = sala;
+            exits.put("north", sala);
         if(direccion.equals("south"))
-            southExit = sala;
+            exits.put("south", sala);
         if(direccion.equals("west"))
-            westExit = sala;
+            exits.put("west", sala);
         if(direccion.equals("southwest"))
-            southwestExit = sala;
+            exits.put("southwest", sala);
     }
 
     /**
