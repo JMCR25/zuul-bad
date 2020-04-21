@@ -34,7 +34,7 @@ public class Game
      */
     private void createRooms()
     {
-        Room salaPrincipal, sotano, prision, capilla, torreon, salaDelTrono, salaDelTesoro, fuenteDeLaSabiduria;
+        Room salaPrincipal, sotano, prision, capilla, torreon, salaDelTrono, salaDelTesoro, fuenteDeLaSabiduria, aposentosDelRey, acantilado;
 
         // create the rooms
         salaPrincipal = new Room("in front of the entrance");
@@ -45,6 +45,8 @@ public class Game
         salaDelTrono = new Room("on the majestic throne room");
         salaDelTesoro = new Room("on a filled with gold treasure room");
         fuenteDeLaSabiduria  = new Room("the new sage king");
+        aposentosDelRey = new Room("in a room which smells weird");
+        acantilado = new Room("");
         // initialise room exits
         salaPrincipal.setExit("east", capilla);
         salaPrincipal.setExit("west", sotano);
@@ -55,10 +57,13 @@ public class Game
         capilla.setExit("east", torreon);
         capilla.setExit("south", salaDelTrono);
         torreon.setExit("west", capilla);
+        torreon.setExit("southeast", acantilado);
         salaDelTrono.setExit("north", capilla);
         salaDelTrono.setExit("south", salaDelTesoro);
         salaDelTrono.setExit("southwest", fuenteDeLaSabiduria);
+        salaDelTrono.setExit("southeast", aposentosDelRey);
         salaDelTesoro.setExit("north", salaDelTrono);
+        
         currentRoom = salaPrincipal;  // start game outside
     }
 
