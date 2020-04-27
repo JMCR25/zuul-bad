@@ -63,7 +63,7 @@ public class Game
         salaDelTrono.setExit("southwest", fuenteDeLaSabiduria);
         salaDelTrono.setExit("southeast", aposentosDelRey);
         salaDelTesoro.setExit("north", salaDelTrono);
-        
+
         currentRoom = salaPrincipal;  // start game outside
     }
 
@@ -172,8 +172,7 @@ public class Game
     }
 
     private String printLocationInfo() {
-        String direction = currentRoom.getExitString();
-        return direction;
+        return currentRoom.getLongDescription();        
     }
 
     /** 
