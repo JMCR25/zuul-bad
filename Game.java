@@ -37,16 +37,16 @@ public class Game
         Room salaPrincipal, sotano, prision, capilla, torreon, salaDelTrono, salaDelTesoro, fuenteDeLaSabiduria, aposentosDelRey, acantilado;
 
         // create the rooms
-        salaPrincipal = new Room("in front of the entrance");
-        sotano = new Room("on a dark basement");
-        prision = new Room("on the scary prisión");
-        capilla = new Room("on the disturbing chapel");
-        torreon = new Room("on a decrepit tower");
-        salaDelTrono = new Room("on the majestic throne room");
-        salaDelTesoro = new Room("on a filled with gold treasure room");
-        fuenteDeLaSabiduria  = new Room("the new sage king");
-        aposentosDelRey = new Room("in a room which smells weird");
-        acantilado = new Room("");
+        salaPrincipal = new Room("in front of the entrance", "", 0);
+        sotano = new Room("on a dark basement", "Espada de oro", 1);
+        prision = new Room("on the scary prisión", "", 0);
+        capilla = new Room("on the disturbing chapel", "", 0);
+        torreon = new Room("on a decrepit tower", "Armadura ligera", 11);
+        salaDelTrono = new Room("on the majestic throne room", "Cofre de diamantes", 5);
+        salaDelTesoro = new Room("on a filled with gold treasure room", "", 0);
+        fuenteDeLaSabiduria  = new Room("the new sage king", "", 0);
+        aposentosDelRey = new Room("in a room which smells weird", "", 0);
+        acantilado = new Room("in a dangerous zone", "", 0);
         // initialise room exits
         salaPrincipal.setExit("east", capilla);
         salaPrincipal.setExit("west", sotano);
