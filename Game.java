@@ -35,18 +35,21 @@ public class Game
     private void createRooms()
     {
         Room salaPrincipal, sotano, prision, capilla, torreon, salaDelTrono, salaDelTesoro, fuenteDeLaSabiduria, aposentosDelRey, acantilado;
-
+        Item espadaDeOro, armaduraLigera, cofreDeDiamantes;
         // create the rooms
-        salaPrincipal = new Room("in front of the entrance", "", 0);
-        sotano = new Room("on a dark basement", "Espada de oro", 1);
-        prision = new Room("on the scary prisión", "", 0);
-        capilla = new Room("on the disturbing chapel", "", 0);
-        torreon = new Room("on a decrepit tower", "Armadura ligera", 11);
-        salaDelTrono = new Room("on the majestic throne room", "Cofre de diamantes", 5);
-        salaDelTesoro = new Room("on a filled with gold treasure room", "", 0);
-        fuenteDeLaSabiduria  = new Room("the new sage king", "", 0);
-        aposentosDelRey = new Room("in a room which smells weird", "", 0);
-        acantilado = new Room("in a dangerous zone", "", 0);
+        espadaDeOro = new Item("a shining sword", 1);
+        armaduraLigera = new Item("a light armor", 11);
+        cofreDeDiamantes = new Item("a filled of diamonds chest", 5);
+        salaPrincipal = new Room("in front of the entrance", null);
+        sotano = new Room("on a dark basement", espadaDeOro);
+        prision = new Room("on the scary prisión", null);
+        capilla = new Room("on the disturbing chapel", null);
+        torreon = new Room("on a decrepit tower", armaduraLigera);
+        salaDelTrono = new Room("on the majestic throne room", null);
+        salaDelTesoro = new Room("on a filled with gold treasure room", cofreDeDiamantes);
+        fuenteDeLaSabiduria  = new Room("the new sage king", null);
+        aposentosDelRey = new Room("in a room which smells weird", null);
+        acantilado = new Room("in a dangerous zone", null);
         // initialise room exits
         salaPrincipal.setExit("east", capilla);
         salaPrincipal.setExit("west", sotano);
