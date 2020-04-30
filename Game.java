@@ -35,21 +35,20 @@ public class Game
     private void createRooms()
     {
         Room salaPrincipal, sotano, prision, capilla, torreon, salaDelTrono, salaDelTesoro, fuenteDeLaSabiduria, aposentosDelRey, acantilado;
-        Item espadaDeOro, armaduraLigera, cofreDeDiamantes;
         // create the rooms
-        espadaDeOro = new Item("a shining sword", 1);
-        armaduraLigera = new Item("a light armor", 11);
-        cofreDeDiamantes = new Item("a filled of diamonds chest", 5);
-        salaPrincipal = new Room("in front of the entrance", null);
-        sotano = new Room("on a dark basement", espadaDeOro);
-        prision = new Room("on the scary prisión", null);
-        capilla = new Room("on the disturbing chapel", null);
-        torreon = new Room("on a decrepit tower", armaduraLigera);
-        salaDelTrono = new Room("on the majestic throne room", null);
-        salaDelTesoro = new Room("on a filled with gold treasure room", cofreDeDiamantes);
-        fuenteDeLaSabiduria  = new Room("the new sage king", null);
-        aposentosDelRey = new Room("in a room which smells weird", null);
-        acantilado = new Room("in a dangerous zone", null);
+        salaPrincipal = new Room("in front of the entrance");
+        sotano = new Room("on a dark basement");
+        prision = new Room("on the scary prisión");
+        capilla = new Room("on the disturbing chapel");
+        torreon = new Room("on a decrepit tower");
+        salaDelTrono = new Room("on the majestic throne room");
+        salaDelTesoro = new Room("on a filled with gold treasure room");
+        fuenteDeLaSabiduria  = new Room("the new sage king");
+        aposentosDelRey = new Room("in a room which smells weird");
+        acantilado = new Room("in a dangerous zone");
+        sotano.addItem("a shining sword", 1);sotano.addItem("a shining sword", 1);
+        torreon.addItem("a light armor", 11);
+        salaDelTesoro.addItem("a filled of diamonds chest", 5);
         // initialise room exits
         salaPrincipal.setExit("east", capilla);
         salaPrincipal.setExit("west", sotano);
