@@ -19,7 +19,8 @@ public class Game
 {
     private Parser parser;
     private Room currentRoom;
-
+    private Command container;
+    private Room contenedor;
     /**
      * Create the game and initialise its internal map.
      */
@@ -27,6 +28,8 @@ public class Game
     {
         createRooms();
         parser = new Parser();
+        container = null;
+        contenedor = null;
     }
 
     /**
@@ -109,17 +112,16 @@ public class Game
     private boolean processCommand(Command command) 
     {
         boolean wantToQuit = false;
-
         if(command.isUnknown()) {
             System.out.println("I don't know what you mean...");
             return false;
         }
-
         String commandWord = command.getCommandWord();
         if (commandWord.equals("help")) {
             printHelp();
         }
         else if (commandWord.equals("go")) {
+            contenedor = currentRoom;
             goRoom(command);
         }
         else if (commandWord.equals("look")) {
@@ -131,7 +133,11 @@ public class Game
         else if (commandWord.equals("quit")) {
             wantToQuit = quit(command);
         }
-
+        else if (commandWord.equals("back")) {
+            if (container.getCommandWord().equals("go"))
+                currentRoom = contenedor;
+        }
+        container = command;
         return wantToQuit;
     }
 
