@@ -120,7 +120,6 @@ public class Game
             printHelp();
         }
         else if (commandWord.equals("go")) {
-            salas.add(currentRoom);
             goRoom(command);
         }
         else if (commandWord.equals("look")) {
@@ -181,6 +180,7 @@ public class Game
             currentRoom = nextRoom;
             System.out.println(printLocationInfo());
             System.out.println();
+            salas.add(currentRoom);
         }
     }
 
