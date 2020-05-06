@@ -48,7 +48,10 @@ public class Game
         fuenteDeLaSabiduria  = new Room("the new sage king");
         aposentosDelRey = new Room("in a room which smells weird");
         acantilado = new Room("in a dangerous zone");
-        sotano.addItem("a shining sword", 1);sotano.addItem("a shining sword", 1);
+        sotano.addItem("a shining sword", 1);
+        sotano.addItem("a carafe of holy water", 5);
+        sotano.addItem("a Zeus statue", 100);
+        sotano.addItem("a rusty shackles", 1);
         torreon.addItem("a light armor", 11);
         salaDelTesoro.addItem("a filled of diamonds chest", 5);
         // initialise room exits
