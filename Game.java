@@ -46,12 +46,12 @@ public class Game
         fuenteDeLaSabiduria  = new Room("the new sage king");
         aposentosDelRey = new Room("in a room which smells weird");
         acantilado = new Room("in a dangerous zone");
-        sotano.addItem("a shining sword", "sword", 1);
-        capilla.addItem("a carafe of holy water","holy", 5);
-        salaDelTesoro.addItem("a Zeus statue", "statue", 100);
-        prision.addItem("a rusty shackles", "shackles", 1);
-        torreon.addItem("a light armor", "armor", 11);
-        salaDelTesoro.addItem("a filled of diamonds chest", "chest", 5);
+        sotano.addItem("a shining sword", "sword", 1, true);
+        capilla.addItem("a carafe of holy water","holy", 5, true);
+        salaDelTesoro.addItem("a Zeus statue", "statue", 100, false);
+        prision.addItem("a rusty shackles", "shackles", 1, true);
+        torreon.addItem("a light armor", "armor", 11, true);
+        salaDelTesoro.addItem("a filled of diamonds chest", "chest", 5, true);
         // initialise room exits
         salaPrincipal.setExit("east", capilla);
         salaPrincipal.setExit("west", sotano);

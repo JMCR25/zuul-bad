@@ -3,11 +3,13 @@ public class Item
     private String descripcion;
     private String identificador;
     private int peso;
+    private boolean sePuedeCoger;
 
-    public Item(String nombre, String id, int pesoI) {
+    public Item(String nombre, String id, int pesoI, boolean disponibilidad) {
         descripcion = nombre;
         identificador = id;
         peso = pesoI;
+        sePuedeCoger = disponibilidad;
     }
     
     public void setItem(String descrip, int weight) {
@@ -22,6 +24,10 @@ public class Item
     
     public String getId() {
         return identificador;
+    }
+    
+    public boolean getDisp() {
+        return sePuedeCoger;
     }
     
 }

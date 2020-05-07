@@ -75,8 +75,8 @@ public class Room
         return description;
     }
 
-    public void addItem (String descrip, String id, int weight) {
-        Item objeto = new Item(descrip, id, weight);
+    public void addItem (String descrip, String id, int weight, boolean dispo) {
+        Item objeto = new Item(descrip, id, weight, dispo);
         objetos.add(objeto);
     }
 

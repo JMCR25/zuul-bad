@@ -80,9 +80,14 @@ public class Player
             System.out.println();
         }
         else{
-            mochila.add(it);
-            objs.remove(cont2);
-            System.out.println();
+            if (it.getDisp() == true){
+                mochila.add(it);
+                objs.remove(cont2);
+                System.out.println();
+            }
+            else {
+                System.out.println("This item can't be carried!");
+            }
         }
     }
 }
