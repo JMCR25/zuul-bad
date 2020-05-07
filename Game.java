@@ -70,7 +70,7 @@ public class Game
         salaDelTesoro.setExit("north", salaDelTrono);
         jugador.firstLocation(salaPrincipal);
     }
-
+ 
     /**
      *  Main play routine.  Loops until end of play.
      */
