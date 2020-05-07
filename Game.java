@@ -1,4 +1,5 @@
 import java.util.Stack;
+import java.util.ArrayList;
 /**
  *  This class is the main class of the "World of Zuul" application. 
  *  "World of Zuul" is a very simple, text based adventure game.  Users 
@@ -21,6 +22,8 @@ public class Game
     private Parser parser;
     private Room currentRoom;
     private Stack<Room> salas;
+    private ArrayList<Item> mochila;
+    private int pesoMaximo;
     /**
      * Create the game and initialise its internal map.
      */
@@ -29,6 +32,8 @@ public class Game
         createRooms();
         parser = new Parser();
         salas = new Stack<Room>();
+        mochila = new ArrayList<Item>();
+        pesoMaximo = 16;
     }
 
     /**
@@ -48,12 +53,12 @@ public class Game
         fuenteDeLaSabiduria  = new Room("the new sage king");
         aposentosDelRey = new Room("in a room which smells weird");
         acantilado = new Room("in a dangerous zone");
-        sotano.addItem("a shining sword", 1);
-        sotano.addItem("a carafe of holy water", 5);
-        sotano.addItem("a Zeus statue", 100);
-        sotano.addItem("a rusty shackles", 1);
-        torreon.addItem("a light armor", 11);
-        salaDelTesoro.addItem("a filled of diamonds chest", 5);
+        sotano.addItem("a shining sword", "sword", 1);
+        capilla.addItem("a carafe of holy water","holy", 5);
+        salaDelTesoro.addItem("a Zeus statue", "statue", 100);
+        prision.addItem("a rusty shackles", "shackles", 1);
+        torreon.addItem("a light armor", "armor", 11);
+        salaDelTesoro.addItem("a filled of diamonds chest", "chest", 5);
         // initialise room exits
         salaPrincipal.setExit("east", capilla);
         salaPrincipal.setExit("west", sotano);
@@ -141,6 +146,19 @@ public class Game
                 System.out.println("No more backs");
             }
         }
+        else if (commandWord.equals("items")) {
+            String objetos = "You have in inventory: ";
+            for (Item inventario : mochila) {
+                objetos += "\n" + inventario.getItem();
+            }
+            System.out.println(objetos);
+        }
+        else if (commandWord.equals("take")) {
+            takeItem(command);
+        }
+        else if (commandWord.equals("drop")) {
+            dropItem(command);
+        }
         return wantToQuit;
     }
 
@@ -213,5 +231,80 @@ public class Game
 
     private void eat() {
         System.out.println( "You have eaten now and you are not hungry any more");
+    }
+
+    /** 
+     * Try to go in one direction. If there is an exit, enter
+     * the new room, otherwise print an error message.
+     */
+    private void takeItem(Command command) 
+    {
+        if(!command.hasSecondWord()) {
+            System.out.println("Take what?");
+            return;
+        }
+
+        String objeto = command.getSecondWord();
+
+        // Try to leave current room.
+        Item it = null;
+        ArrayList<Item> objs = currentRoom.getItems();
+        int cont = 0;
+        int cont2 = 0;
+        for (Item obj : objs) {
+            if (obj.getId().equals(command.getSecondWord())) {
+                it = obj;
+                cont2 = cont;
+            }
+            cont++;    
+        }
+        if (it == null) {
+            System.out.println("That item isn't here!");
+            System.out.println(printLocationInfo());
+            System.out.println();
+        }
+        else {
+            if ((pesoMaximo - it.getWeight()) <= 0 || pesoMaximo != 0) {
+                mochila.add(it);
+                pesoMaximo -= it.getWeight();
+                objs.remove(cont2);
+                System.out.println("You have: " + pesoMaximo + " kg(s) free");
+                System.out.println();
+            }
+            else 
+                System.out.println("You have: " + pesoMaximo + " kg(s) free, you can't carry it!");
+        }
+    }
+
+    private void dropItem(Command command) 
+    {
+        if(!command.hasSecondWord()) {
+            System.out.println("Drop what?");
+            return;
+        }
+
+        String objeto = command.getSecondWord();
+
+        // Try to leave current room.
+        Item it = null;
+        int cont = 0;
+        int cont2 = 0;
+        for (Item obj : mochila) {
+            if (obj.getId().equals(command.getSecondWord())) {
+                it = obj;
+                cont2 = cont;
+            }
+            cont++;    
+        }
+        if (it == null) {
+            System.out.println("You don't have that item!");
+        }
+        else {
+            currentRoom.addPremadeItem(it);
+            pesoMaximo += it.getWeight();
+            mochila.remove(cont2);
+            System.out.println("You have: " + pesoMaximo + " kg(s) free");
+            System.out.println();
+        }
     }
 }

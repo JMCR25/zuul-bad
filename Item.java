@@ -1,21 +1,31 @@
 public class Item
 {
     private String descripcion;
+    private String identificador;
     private int peso;
 
-    public Item(String nombre, int pesoI) {
+    public Item(String nombre, String id, int pesoI) {
         descripcion = nombre;
+        identificador = id;
         peso = pesoI;
     }
     
-    public void setItem(String descrip, int weight) {
+    public void setItem(String descrip, String id, int weight) {
         descripcion = descrip;
+        identificador = id;
         peso = weight;
     }
     
     public String getItem() {
-        String description = "\n" + "You found a: " + descripcion + "\n" + "Weight: " + peso;
+        String description = descripcion + " '" + identificador + "'" + "\n" + "Weight: " + peso;
         return description;
     }
     
+    public String getId() {
+        return identificador;
+    }
+    
+    public int getWeight() {
+        return peso;
+    }
 }
