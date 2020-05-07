@@ -19,16 +19,14 @@ import java.util.Stack;
 public class Game 
 {
     private Parser parser;
-    private Room currentRoom;
-    private Stack<Room> salas;
+    private Player jugador;
     /**
      * Create the game and initialise its internal map.
      */
-    public Game() 
-    {
-        createRooms();
-        parser = new Parser();
-        salas = new Stack<Room>();
+    public Game() {
+        jugador = new Player();
+        createRooms(); 
+        parser = new Parser(); 
     }
 
     /**
@@ -49,9 +47,9 @@ public class Game
         aposentosDelRey = new Room("in a room which smells weird");
         acantilado = new Room("in a dangerous zone");
         sotano.addItem("a shining sword", 1);
-        sotano.addItem("a carafe of holy water", 5);
-        sotano.addItem("a Zeus statue", 100);
-        sotano.addItem("a rusty shackles", 1);
+        capilla.addItem("a carafe of holy water", 5);
+        salaDelTesoro.addItem("a Zeus statue", 100);
+        prision.addItem("a rusty shackles", 1);
         torreon.addItem("a light armor", 11);
         salaDelTesoro.addItem("a filled of diamonds chest", 5);
         // initialise room exits
@@ -70,8 +68,7 @@ public class Game
         salaDelTrono.setExit("southwest", fuenteDeLaSabiduria);
         salaDelTrono.setExit("southeast", aposentosDelRey);
         salaDelTesoro.setExit("north", salaDelTrono);
-
-        currentRoom = salaPrincipal;  // start game outside
+        jugador.firstLocation(salaPrincipal);
     }
 
     /**
@@ -102,7 +99,7 @@ public class Game
         System.out.println("World of Zuul is a new, incredibly boring adventure game.");
         System.out.println("Type 'help' if you need help.");
         System.out.println();
-        System.out.println(printLocationInfo());
+        jugador.look();
         System.out.println();
     }
 
@@ -123,28 +120,22 @@ public class Game
             printHelp();
         }
         else if (commandWord.equals("go")) {
-            goRoom(command);
+            jugador.goRoom(command);
         }
         else if (commandWord.equals("look")) {
-            look();
+            jugador.look();
         }
         else if (commandWord.equals("eat")) {
-            eat();
+            jugador.eat();
         }
         else if (commandWord.equals("quit")) {
             wantToQuit = quit(command);
         }
         else if (commandWord.equals("back")) {
-            if (salas.size() > 0)
-                currentRoom = salas.pop();
-            else{
-                System.out.println("No more backs");
-            }
+            jugador.back();
         }
         return wantToQuit;
     }
-
-    // implementations of user commands:
 
     /**
      * Print out some help information.
@@ -158,37 +149,6 @@ public class Game
         System.out.println();
         System.out.println("Your command words are:");
         System.out.println(parser.showCommands());
-    }
-
-    /** 
-     * Try to go in one direction. If there is an exit, enter
-     * the new room, otherwise print an error message.
-     */
-    private void goRoom(Command command) 
-    {
-        if(!command.hasSecondWord()) {
-            // if there is no second word, we don't know where to go...
-            System.out.println("Go where?");
-            return;
-        }
-
-        String direction = command.getSecondWord();
-
-        // Try to leave current room.
-        Room nextRoom = currentRoom.getExit(direction);
-        if (nextRoom == null) {
-            System.out.println("There is no door!");
-        }
-        else {
-            currentRoom = nextRoom;
-            System.out.println(printLocationInfo());
-            System.out.println();
-            salas.add(currentRoom);
-        }
-    }
-
-    private String printLocationInfo() {
-        return currentRoom.getLongDescription();        
     }
 
     /** 
@@ -207,11 +167,4 @@ public class Game
         }
     }
 
-    private void look() {
-        System.out.println(currentRoom.getLongDescription());
-    }
-
-    private void eat() {
-        System.out.println( "You have eaten now and you are not hungry any more");
-    }
 }
