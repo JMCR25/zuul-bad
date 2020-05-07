@@ -90,4 +90,14 @@ public class Player
             }
         }
     }
+    
+    public void showItems() {
+            String objetos = "You have in inventory: ";
+            int peso = 0;
+            for (Item inventario : mochila) {
+                objetos += "\n" + inventario.getItem();
+                peso += inventario.getWeight();
+            }
+            System.out.println(objetos + "\n" + "The total weight is: " + peso);
+    }
 }

@@ -11,23 +11,27 @@ public class Item
         peso = pesoI;
         sePuedeCoger = disponibilidad;
     }
-    
+
     public void setItem(String descrip, int weight) {
         descripcion = descrip;
         peso = weight;
     }
-    
+
     public String getItem() {
         String description = descripcion + " '" + identificador + "'" + "\n" + "Weight: " + peso;
         return description;
     }
-    
+
     public String getId() {
         return identificador;
     }
-    
+
     public boolean getDisp() {
         return sePuedeCoger;
     }
-    
+
+    public int getWeight() {
+        return peso;
+    }
+
 }
