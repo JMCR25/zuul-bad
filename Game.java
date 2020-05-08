@@ -52,6 +52,8 @@ public class Game
         prision.addItem("a rusty shackles", "shackles", 1, true);
         torreon.addItem("a light armor", "armor", 11, true);
         salaDelTesoro.addItem("a filled of diamonds chest", "chest", 5, true);
+        torreon.addItem("a potion that multiplies your strenght", "potion", 5, true);
+        salaDelTrono.addItem("the most powerful sword ever forged", "ultima", 5, true);
         // initialise room exits
         salaPrincipal.setExit("east", capilla);
         salaPrincipal.setExit("west", sotano);
@@ -142,6 +144,9 @@ public class Game
         } 
         else if (commandWord.equals("drop")) {
             jugador.dropItem(command);
+        }
+        else if (commandWord.equals("drink")) {
+            jugador.drinkPotion(command);
         }
         return wantToQuit;
     }

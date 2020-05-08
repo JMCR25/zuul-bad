@@ -129,11 +129,42 @@ public class Player
             System.out.println("You don't have that item!");
         }
         else {
-                currentRoom.addPremadeItem(it);
-                pesoMax += it.getWeight();
-                mochila.remove(cont2);
-                System.out.println("You have: " + pesoMax + " kg(s) free");
-                System.out.println();
+            currentRoom.addPremadeItem(it);
+            pesoMax += it.getWeight();
+            mochila.remove(cont2);
+            System.out.println("You have: " + pesoMax + " kg(s) free");
+            System.out.println();
+        }
+    }
+
+    public void drinkPotion(Command command) 
+    {
+        if(!command.hasSecondWord()) {
+            System.out.println("Drink what?");
+            return;
+        }
+        String objeto = command.getSecondWord();
+        boolean drinked = false;
+        int cont = 0;
+        int pesoAumento = pesoMax;
+        for (Item obj : mochila){
+            if (obj.getId().equals("potion")) {
+                drinked = true;
             }
+            pesoAumento += obj.getWeight();
+            if (drinked == false){
+                cont++; 
+            }
+        }
+        if (drinked = false) {
+            System.out.println("You don't have that item!");
+        }
+        else {
+            pesoMax += pesoAumento + mochila.get(cont).getWeight();
+            mochila.remove(cont);
+            System.out.println("You have: " + pesoMax + " kg(s) free");
+            System.out.println();
+        }
     }
 }
+
