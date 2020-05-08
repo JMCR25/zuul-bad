@@ -90,12 +90,16 @@ public class Room
     public String getLongDescription() {
         String devuelve = "You are " + description + "\n" + getExitString();
         for (Item objeto : objetos) {
-            devuelve += "\n" + objeto.getItem();
+            devuelve += "\n" + "You found: " + objeto.getItem();
         }
         return devuelve;
     }
 
     public ArrayList getItems() {
         return objetos;
+    }
+
+    public void addPremadeItem(Item objeto) {
+        objetos.add(objeto);
     }
 }

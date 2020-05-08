@@ -90,14 +90,44 @@ public class Player
             }
         }
     }
-    
+
     public void showItems() {
-            String objetos = "You have in inventory: ";
-            int peso = 0;
-            for (Item inventario : mochila) {
-                objetos += "\n" + inventario.getItem();
-                peso += inventario.getWeight();
+        String objetos = "You have in inventory: ";
+        int peso = 0;
+        for (Item inventario : mochila) {
+            objetos += "\n" + inventario.getItem();
+            peso += inventario.getWeight();
+        }
+        System.out.println(objetos + "\n" + "The total weight is: " + peso);
+    }
+
+    public void dropItem(Command command) 
+    {
+        if(!command.hasSecondWord()) {
+            System.out.println("Drop what?");
+            return;
+        }
+
+        String objeto = command.getSecondWord();
+
+        // Try to leave current room.
+        Item it = null;
+        int cont = 0;
+        int cont2 = 0;
+        for (Item obj : mochila) {
+            if (obj.getId().equals(command.getSecondWord())) {
+                it = obj;
+                cont2 = cont;
             }
-            System.out.println(objetos + "\n" + "The total weight is: " + peso);
+            cont++;    
+        }
+        if (it == null) {
+            System.out.println("You don't have that item!");
+        }
+        else {
+            currentRoom.addPremadeItem(it);
+            mochila.remove(cont2);
+            System.out.println();
+        }
     }
 }

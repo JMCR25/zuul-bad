@@ -70,7 +70,7 @@ public class Game
         salaDelTesoro.setExit("north", salaDelTrono);
         jugador.firstLocation(salaPrincipal);
     }
- 
+
     /**
      *  Main play routine.  Loops until end of play.
      */
@@ -140,6 +140,9 @@ public class Game
         else if (commandWord.equals("items")) {
             jugador.showItems();
         } 
+        else if (commandWord.equals("drop")) {
+            jugador.dropItem(command);
+        }
         return wantToQuit;
     }
 
