@@ -23,8 +23,8 @@ public class Game
     /**
      * Create the game and initialise its internal map.
      */
-    public Game() {
-        jugador = new Player();
+    public Game(int peso) {
+        jugador = new Player(peso);
         createRooms(); 
         parser = new Parser(); 
     }

@@ -5,10 +5,12 @@ public class Player
     private Room currentRoom;
     private Stack<Room> salas;
     private ArrayList<Item> mochila;
-    public Player()
+    private int pesoMax;
+    public Player(int fuerza)
     {
         salas = new Stack<Room>();
         mochila = new ArrayList<Item>();
+        pesoMax = fuerza;
     }
 
     public void firstLocation(Room sala) { 
@@ -74,20 +76,22 @@ public class Player
             }
             cont++;    
         }
+        cont = pesoMax - it.getWeight();
         if (it == null) {
             System.out.println("That item isn't here!");
             look();
             System.out.println();
         }
         else{
-            if (it.getDisp() == true){
+            if ((cont >= 0) && it.getDisp() == true){
                 mochila.add(it);
                 objs.remove(cont2);
+                pesoMax -= it.getWeight();
+                System.out.println("You have: " + pesoMax + " kg(s) free");
                 System.out.println();
             }
-            else {
+            else 
                 System.out.println("This item can't be carried!");
-            }
         }
     }
 
@@ -125,9 +129,11 @@ public class Player
             System.out.println("You don't have that item!");
         }
         else {
-            currentRoom.addPremadeItem(it);
-            mochila.remove(cont2);
-            System.out.println();
-        }
+                currentRoom.addPremadeItem(it);
+                pesoMax += it.getWeight();
+                mochila.remove(cont2);
+                System.out.println("You have: " + pesoMax + " kg(s) free");
+                System.out.println();
+            }
     }
 }
