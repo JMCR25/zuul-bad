@@ -75,11 +75,11 @@ public class Room
         return description;
     }
 
-    public void addItem (String descrip, int weight) {
-        Item objeto = new Item(descrip, weight);
+    public void addItem (String descrip, String id, int weight, boolean dispo) {
+        Item objeto = new Item(descrip, id, weight, dispo);
         objetos.add(objeto);
     }
-    
+
     /**
      * Devuelve un texto con la descripcion completa de la habitacion, que 
      * incluye la descripcion corta de la sala y las salidas de la misma. Por ejemplo:
@@ -89,13 +89,17 @@ public class Room
      */
     public String getLongDescription() {
         String devuelve = "You are " + description + "\n" + getExitString();
-        if (objetos.size() >= 0) {
-            for (Item objeto : objetos) {
-                devuelve += "\n" + objeto.getItem();
-            }
+        for (Item objeto : objetos) {
+            devuelve += "\n" + "You found: " + objeto.getItem();
         }
         return devuelve;
     }
 
-    
+    public ArrayList getItems() {
+        return objetos;
+    }
+
+    public void addPremadeItem(Item objeto) {
+        objetos.add(objeto);
+    }
 }

@@ -1,11 +1,16 @@
 import java.util.Stack;
+import java.util.ArrayList;
 public class Player
 {
     private Room currentRoom;
     private Stack<Room> salas;
-    public Player()
+    private ArrayList<Item> mochila;
+    private int pesoMax;
+    public Player(int fuerza)
     {
         salas = new Stack<Room>();
+        mochila = new ArrayList<Item>();
+        pesoMax = fuerza;
     }
 
     public void firstLocation(Room sala) { 
@@ -20,7 +25,6 @@ public class Player
         System.out.println("You have eaten now and you are not hungry any more");
     }
 
-    
     public void goRoom(Command command) 
     {
         if(!command.hasSecondWord()) {
@@ -49,5 +53,87 @@ public class Player
             currentRoom = salas.pop();
         else
             System.out.println("No more backs");
+    }
+
+    public void takeItem(Command command) 
+    {
+        if(!command.hasSecondWord()) {
+            System.out.println("Take what?");
+            return;
+        }
+
+        String objeto = command.getSecondWord();
+
+        // Try to leave current room.
+        Item it = null;
+        ArrayList<Item> objs = currentRoom.getItems();
+        int cont = 0;
+        int cont2 = 0;
+        for (Item obj : objs) {
+            if (obj.getId().equals(command.getSecondWord())) {
+                it = obj;
+                cont2 = cont;
+            }
+            cont++;    
+        }
+        cont = pesoMax - it.getWeight();
+        if (it == null) {
+            System.out.println("That item isn't here!");
+            look();
+            System.out.println();
+        }
+        else{
+            if ((cont >= 0) && it.getDisp() == true){
+                mochila.add(it);
+                objs.remove(cont2);
+                pesoMax -= it.getWeight();
+                System.out.println("You have: " + pesoMax + " kg(s) free");
+                System.out.println();
+            }
+            else 
+                System.out.println("This item can't be carried!");
+        }
+    }
+
+    public void showItems() {
+        String objetos = "You have in inventory: ";
+        int peso = 0;
+        for (Item inventario : mochila) {
+            objetos += "\n" + inventario.getItem();
+            peso += inventario.getWeight();
+        }
+        System.out.println(objetos + "\n" + "The total weight is: " + peso);
+    }
+
+    public void dropItem(Command command) 
+    {
+        if(!command.hasSecondWord()) {
+            System.out.println("Drop what?");
+            return;
+        }
+
+        String objeto = command.getSecondWord();
+
+        // Try to leave current room.
+        Item it = null;
+        int cont = 0;
+        int cont2 = 0;
+        for (Item obj : mochila) {
+            if (obj.getId().equals(command.getSecondWord())) {
+                it = obj;
+                cont2 = cont;
+            }
+            cont++;    
+        }
+        if (it == null) {
+            System.out.println("You don't have that item!");
+        }
+        else {
+                currentRoom.addPremadeItem(it);
+                pesoMax += it.getWeight();
+                mochila.remove(cont2);
+                System.out.println("You have: " + pesoMax + " kg(s) free");
+                System.out.println();
+            }
     }
 }

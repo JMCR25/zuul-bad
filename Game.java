@@ -23,8 +23,8 @@ public class Game
     /**
      * Create the game and initialise its internal map.
      */
-    public Game() {
-        jugador = new Player();
+    public Game(int peso) {
+        jugador = new Player(peso);
         createRooms(); 
         parser = new Parser(); 
     }
@@ -46,12 +46,12 @@ public class Game
         fuenteDeLaSabiduria  = new Room("the new sage king");
         aposentosDelRey = new Room("in a room which smells weird");
         acantilado = new Room("in a dangerous zone");
-        sotano.addItem("a shining sword", 1);
-        capilla.addItem("a carafe of holy water", 5);
-        salaDelTesoro.addItem("a Zeus statue", 100);
-        prision.addItem("a rusty shackles", 1);
-        torreon.addItem("a light armor", 11);
-        salaDelTesoro.addItem("a filled of diamonds chest", 5);
+        sotano.addItem("a shining sword", "sword", 1, true);
+        capilla.addItem("a carafe of holy water","holy", 5, true);
+        salaDelTesoro.addItem("a Zeus statue", "statue", 100, false);
+        prision.addItem("a rusty shackles", "shackles", 1, true);
+        torreon.addItem("a light armor", "armor", 11, true);
+        salaDelTesoro.addItem("a filled of diamonds chest", "chest", 5, true);
         // initialise room exits
         salaPrincipal.setExit("east", capilla);
         salaPrincipal.setExit("west", sotano);
@@ -70,7 +70,7 @@ public class Game
         salaDelTesoro.setExit("north", salaDelTrono);
         jugador.firstLocation(salaPrincipal);
     }
- 
+
     /**
      *  Main play routine.  Loops until end of play.
      */
@@ -133,6 +133,15 @@ public class Game
         }
         else if (commandWord.equals("back")) {
             jugador.back();
+        }        
+        else if (commandWord.equals("take")) {
+            jugador.takeItem(command);
+        }
+        else if (commandWord.equals("items")) {
+            jugador.showItems();
+        } 
+        else if (commandWord.equals("drop")) {
+            jugador.dropItem(command);
         }
         return wantToQuit;
     }
